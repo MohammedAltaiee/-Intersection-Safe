@@ -5,6 +5,7 @@
     <string name="passwordStr">Password</string>
     <string name="sininBtn">Sign In!</string>
     <string name="reisterBtn">Register!</string>
-    <string name="loginresendText">If you have already account? login!</string>
+    <string name="loginresendText">If you have already account? Sign In!</string>
+    <string name="registerresendText">If you DO Not have account? Register!</string>
 
 </resources>

@@ -12,14 +12,14 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="437dp"
+        android:layout_height="500dp"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="439dp"
+            android:layout_height="match_parent"
             android:background="@drawable/custom_edittext"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -28,58 +28,69 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sininBtn"
+                android:text="@string/reisterBtn"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/EmailAddressfield"
+
+            <EditText
+                android:id="@+id/EmailAddressRegisterfield"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/email_logo"
+                android:background="@drawable/customize_input"
+                android:drawableStart="@drawable/email_logo"
                 android:drawablePadding="8dp"
+                android:ems="10"
                 android:hint="@string/emailStr"
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="22sp"
                 android:textColor="@color/black"
-                android:padding="8dp"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/Passwordfield"
+                />
+            <EditText
+                android:id="@+id/PasswordRegisterfield"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/password_logo"
+                android:background="@drawable/customize_input"
+                android:drawableStart="@drawable/password_logo"
                 android:drawablePadding="8dp"
+                android:ems="10"
                 android:hint="@string/passwordStr"
+                android:inputType="textPassword"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="22sp"
                 android:textColor="@color/black"
-                android:padding="8dp"
-                android:textSize="22sp" />
+                />
+
+
+
             <Button
+                android:id="@+id/registerBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="@string/reisterBtn"
-                android:id="@+id/registerBtn"
-                android:textSize="18sp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/verte"
-                app:cornerRadius ="20dp"/>
+                android:text="@string/reisterBtn"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:cornerRadius="20dp" />
+
             <TextView
+                android:id="@+id/resendTextToLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/loginResendText"
-                android:text="@string/loginresendText"
                 android:layout_gravity="center"
-                android:padding="8dp"
                 android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="@string/loginresendText"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
-
-
 
 
         </LinearLayout>
