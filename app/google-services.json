@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "64020457397",
+    "project_id": "intersection-safe",
+    "storage_bucket": "intersection-safe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64020457397:android:6c854dfedc17408b561bfc",
+        "android_client_info": {
+          "package_name": "com.example.intersectionsafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64020457397-3p42j38m0ifbb83t0dgjfpq1gc6r41q7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmLRraLnLXLWnrchP1N0yDflLzYe4RMWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64020457397-3p42j38m0ifbb83t0dgjfpq1gc6r41q7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

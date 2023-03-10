@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Intersection Safe</string>
+    <string name="welcome">Welcome to theIntersection Safe App!</string>
+    <string name="emailStr">Email</string>
+    <string name="passwordStr">Password</string>
+
+</resources>
