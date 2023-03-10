@@ -21,64 +21,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/EmailAddressfield"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="300dp"
-        android:background="@drawable/customize_input"
-        android:drawableStart="@drawable/email_logo"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="@string/emailStr"
-        android:inputType="textEmailAddress"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomText" />
 
-    <EditText
-        android:id="@+id/Passwordfield"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/customize_input"
-        android:drawableStart="@drawable/password_logo"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="@string/passwordStr"
-        android:inputType="textPassword"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EmailAddressfield" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/sininBtn"
-        android:background="@drawable/custmised_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Passwordfield" />
 
-    <Button
-        android:id="@+id/registerBtn"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
-        android:text="@string/reisterBtn"
-        android:background="@drawable/custmised_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Passwordfield" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
