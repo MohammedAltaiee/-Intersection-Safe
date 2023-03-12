@@ -12,7 +12,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
@@ -33,13 +33,45 @@
                 android:textColor="@color/black"
                 android:textSize="36sp"
                 android:textStyle="bold" />
+            <EditText
+                android:id="@+id/NameRegisterfield"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/customize_input"
+                android:drawableStart="@drawable/person_loge"
+                android:drawablePadding="8dp"
+                android:ems="10"
+                android:hint="@string/NameStr"
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                />
+            <EditText
+                android:id="@+id/UserNameRegisterfield"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/customize_input"
+                android:drawableStart="@drawable/person_loge"
+                android:drawablePadding="8dp"
+                android:ems="10"
+                android:hint="@string/userNameStr"
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                />
 
 
             <EditText
                 android:id="@+id/EmailAddressRegisterfield"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/customize_input"
                 android:drawableStart="@drawable/email_logo"
                 android:drawablePadding="8dp"
@@ -82,7 +114,7 @@
                 app:cornerRadius="20dp" />
 
             <TextView
-                android:id="@+id/resendTextToLogin"
+                android:id="@+id/resendTextToSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

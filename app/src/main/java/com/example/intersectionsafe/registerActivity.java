@@ -16,54 +16,51 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class registerActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-    private EditText registerEmail, registerPassword;
-    private Button registerBtn;
-    private TextView loginResendText;
+//    private FirebaseAuth auth;
+    EditText registerName,registerUserName, registerEmail, registerPassword;
+    Button registerBtn;
+    TextView loginResendTextIoSignIn;
+    FirebaseDatabase database;
+    DatabaseReference reference;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        auth =FirebaseAuth.getInstance();
+//        auth =FirebaseAuth.getInstance();
+        registerName= findViewById(R.id.NameRegisterfield);
+        registerUserName= findViewById(R.id.UserNameRegisterfield);
         registerEmail= findViewById(R.id.EmailAddressRegisterfield);
         registerPassword= findViewById(R.id.PasswordRegisterfield);
         registerBtn= findViewById(R.id.registerBtn);
-        loginResendText= findViewById(R.id.resendTextToLogin);
+        loginResendTextIoSignIn= findViewById(R.id.resendTextToSignIn);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String user= registerEmail.getText().toString().trim();
-                String passW = registerPassword.getText().toString().trim();
-                if (user.isEmpty()){
-                    registerEmail.setError("Email should be filed !");
-                }
-                if (passW.isEmpty()){
-                    registerPassword.setError("Password should be filed !");
-                }
-                else {
-                    auth.createUserWithEmailAndPassword(user,passW).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(registerActivity.this,"Register ",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(registerActivity.this,MainActivity.class));
-                            }else {
-                                Toast.makeText(registerActivity.this, "No Register"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("users");
+                String name = registerName.getText().toString();
+                String username = registerUserName.getText().toString();
+                String email = registerEmail.getText().toString();
+                String password = registerPassword.getText().toString();
+                HelperClass helperClass = new HelperClass(name, username, email, password);
+                reference.child(name).setValue(helperClass);
+                Toast.makeText(registerActivity.this, "You are Registered Now!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(registerActivity.this, SignInActivity.class);
+                startActivity(intent);
             }
-        });
-        loginResendText.setOnClickListener(new View.OnClickListener() {
+            });
+
+        loginResendTextIoSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(registerActivity.this, SignInActivity.class));
+                Intent intent = new Intent(registerActivity.this, SignInActivity.class);
+                startActivity(intent);
             }
         });
     }
