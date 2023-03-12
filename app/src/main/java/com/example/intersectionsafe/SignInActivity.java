@@ -16,63 +16,104 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-    private EditText SignInEmail, SignInPassword;
-    private Button SignInBtn;
-    private TextView registerResendText;
+//    private FirebaseAuth auth;
+    EditText SignInUserName, SignInPassword;
+    Button SignInBtn;
+    TextView ResendTextTextToRegister;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        auth =FirebaseAuth.getInstance();
-        SignInEmail= findViewById(R.id.EmailAddressSignInfield);
-        SignInPassword= findViewById(R.id.PasswordSignInfield);
-        SignInBtn= findViewById(R.id.SignInBtn);
-        registerResendText= findViewById(R.id.resendTextToLogin);
+//        auth = FirebaseAuth.getInstance();
+        SignInUserName = findViewById(R.id.UserNameSignInfield);
+        SignInPassword = findViewById(R.id.PasswordSignInfield);
+        SignInBtn = findViewById(R.id.SignInBtn);
+        ResendTextTextToRegister = findViewById(R.id.resendTextToRegister);
+
         SignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = SignInEmail.getText().toString().trim();
-                String passW= SignInPassword.getText().toString().trim();
-                if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    if (!passW.isEmpty()){
-                        auth.signInWithEmailAndPassword(email,passW).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                Toast.makeText(SignInActivity.this,"Sign In Successful",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(SignInActivity.this,MainActivity.class ));
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(SignInActivity.this,"Sign In Failed",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }else {
-                        SignInPassword.setError("Password CAN NOT be Empty!");
-                    }
-                }else if (email.isEmpty()){
-                    SignInEmail.setError("Email CAN NOT be Empty!");
+                if (!validUserName()| !validPassW()){
+
                 }else {
-                    SignInEmail.setError("Enter a Valid Email Please!");
+                    checkUser();
                 }
+            }
+        });
 
+        ResendTextTextToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(SignInActivity.this,registerActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+        public Boolean validUserName () {
+            String val = SignInUserName.getText().toString();
+            if (val.isEmpty()){
+                SignInUserName.setError("User Name should not be empty");
+                return false;
+            }else
+            {
+                SignInUserName.setError(null);
+                return true;
+            }
+        }
+    public Boolean validPassW () {
+        String val = SignInPassword.getText().toString();
+        if (val.isEmpty()){
+            SignInPassword.setError("Password should not be empty");
+            return false;
+        }else {
+            SignInPassword.setError(null);
+            return true;
+        }
+    }
+    public void checkUser(){
+        String userUsername= SignInUserName.getText().toString().trim();
+        String userPassword= SignInPassword.getText().toString().trim();
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase= reference.orderByChild("username").equalTo(userUsername);
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+              if(snapshot.exists()){
+                  SignInUserName.setError(null);
+                  String passwordFromDateBase= snapshot.child(userUsername).child("password").getValue(String.class);
+                  if (!Objects.equals(passwordFromDateBase,userPassword)){
+                      SignInUserName.setError(null);
+                      Intent intent= new Intent(SignInActivity.this,MainActivity.class);
+                      startActivity(intent);
+                  }else {
+                      SignInUserName.setError("Invalid value");
+                      SignInPassword.requestFocus();
+                  }
 
+              }else {
+                  SignInUserName.setError("User does not exisit ");
+                  SignInUserName.requestFocus();
+              }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-            registerResendText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(SignInActivity.this,registerActivity.class));
-                }
-            });
-
     }
 }
