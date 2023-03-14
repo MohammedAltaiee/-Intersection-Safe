@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class registerActivity extends AppCompatActivity {
 
-//    private FirebaseAuth auth;
+    //    private FirebaseAuth auth;
     EditText registerName,registerUserName, registerEmail, registerPassword;
     Button registerBtn;
     TextView loginResendTextIoSignIn;
@@ -54,7 +54,7 @@ public class registerActivity extends AppCompatActivity {
                 Intent intent = new Intent(registerActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
-            });
+        });
 
         loginResendTextIoSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

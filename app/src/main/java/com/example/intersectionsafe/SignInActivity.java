@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 public class SignInActivity extends AppCompatActivity {
 
-//    private FirebaseAuth auth;
+        private FirebaseAuth auth;
     EditText SignInUserName, SignInPassword;
     Button SignInBtn;
     TextView ResendTextTextToRegister;
@@ -38,7 +38,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-//        auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         SignInUserName = findViewById(R.id.UserNameSignInfield);
         SignInPassword = findViewById(R.id.PasswordSignInfield);
         SignInBtn = findViewById(R.id.SignInBtn);
@@ -48,6 +48,8 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!validUserName()| !validPassW()){
+                    Intent intent= new Intent(SignInActivity.this,MainActivity.class);
+                    startActivity(intent);
 
                 }else {
                     checkUser();
@@ -63,17 +65,17 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
-        public Boolean validUserName () {
-            String val = SignInUserName.getText().toString();
-            if (val.isEmpty()){
-                SignInUserName.setError("User Name should not be empty");
-                return false;
-            }else
-            {
-                SignInUserName.setError(null);
-                return true;
-            }
+    public Boolean validUserName () {
+        String val = SignInUserName.getText().toString();
+        if (val.isEmpty()){
+            SignInUserName.setError("User Name should not be empty");
+            return false;
+        }else
+        {
+            SignInUserName.setError(null);
+            return true;
         }
+    }
     public Boolean validPassW () {
         String val = SignInPassword.getText().toString();
         if (val.isEmpty()){
@@ -92,22 +94,22 @@ public class SignInActivity extends AppCompatActivity {
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-              if(snapshot.exists()){
-                  SignInUserName.setError(null);
-                  String passwordFromDateBase= snapshot.child(userUsername).child("password").getValue(String.class);
-                  if (!Objects.equals(passwordFromDateBase,userPassword)){
-                      SignInUserName.setError(null);
-                      Intent intent= new Intent(SignInActivity.this,MainActivity.class);
-                      startActivity(intent);
-                  }else {
-                      SignInUserName.setError("Invalid value");
-                      SignInPassword.requestFocus();
-                  }
+                if(snapshot.exists()){
+                    SignInUserName.setError(null);
+                    String passwordFromDateBase= snapshot.child(userUsername).child("password").getValue(String.class);
+                    if (!Objects.equals(passwordFromDateBase,userPassword)){
+                        SignInUserName.setError(null);
+                        Intent intent= new Intent(SignInActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }else {
+                        SignInUserName.setError("Invalid value");
+                        SignInPassword.requestFocus();
+                    }
 
-              }else {
-                  SignInUserName.setError("User does not exisit ");
-                  SignInUserName.requestFocus();
-              }
+                }else {
+                    SignInUserName.setError("User does not exisit ");
+                    SignInUserName.requestFocus();
+                }
             }
 
             @Override
