@@ -13,9 +13,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-    TextView carsPerHour,numberOfCarsNow,numberOfCarsTotal,TimeElapsed;
-    TextView UserNameTitle;
-    DatabaseReference reference,reference2;
+    TextView carsPerHour,carsPerHourV,numberOfCarsNow,numberOfCarsNowV,numberOfCarsTotal,numberOfCarsTotalV;
+
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,47 +27,36 @@ public class MainActivity extends AppCompatActivity {
         carsPerHour = findViewById(R.id.CarPerHourfield);
         numberOfCarsNow = findViewById(R.id.numberOfCarsNowfield);
         numberOfCarsTotal = findViewById(R.id.numberOfCarsTotalfield);
-        TimeElapsed = findViewById(R.id.TimeElapsedfiled);
-        UserNameTitle= findViewById(R.id.UserNameTitle);
-
-        getdata();
-
-
+        carsPerHourV = findViewById(R.id.CarPerHourfieldV);
+        numberOfCarsNowV = findViewById(R.id.numberOfCarsNowfieldV);
+        numberOfCarsTotalV = findViewById(R.id.numberOfCarsTotalfieldV);
+               getdata();
     }
 
     private void getdata() {
         reference = FirebaseDatabase.getInstance().getReference().child("py");
-//        reference2= FirebaseDatabase.getInstance().getReference("users");
-//        reference2.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String user= snapshot.getValue(String.class);
-//                UserNameTitle.setText(user);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(MainActivity.this, "Fail to get data.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                Integer carsPH= snapshot.child("carsPerHour").getValue(Integer.class);
+                //horizantal
+                Integer carsPH= snapshot.child("Intersection").child("HorizontalTraffic").child("carsPerHour").getValue(Integer.class);
                 carsPerHour.setText(String.valueOf(carsPH));
-                Integer nocn=snapshot.child("numOfCarsRN").getValue(Integer.class);
+                Integer nocn=snapshot.child("Intersection").child("HorizontalTraffic").child("numOfCarsRN").getValue(Integer.class);
                 numberOfCarsNow.setText(String.valueOf(nocn));
-                Integer noct=snapshot.child("numOfCarsTotal").getValue(Integer.class);
+                Integer noct=snapshot.child("Intersection").child("HorizontalTraffic").child("numOfCarsTotal").getValue(Integer.class);
                 numberOfCarsTotal.setText(String.valueOf(noct));
-                Integer te=snapshot.child("timeElapsed").getValue(Integer.class);
-                TimeElapsed.setText(String.valueOf(te));
-                // after getting the value we are setting
-                // our value to our text view in below line.
+                //Vertical
+                Integer carsPHV= snapshot.child("Intersection").child("VerticalTraffic").child("carsPerHour").getValue(Integer.class);
+                carsPerHourV.setText(String.valueOf(carsPHV));
+                Integer nocnV=snapshot.child("Intersection").child("VerticalTraffic").child("numOfCarsRN").getValue(Integer.class);
+                numberOfCarsNowV.setText(String.valueOf(nocnV));
+                Integer noctV=snapshot.child("Intersection").child("VerticalTraffic").child("numOfCarsTotal").getValue(Integer.class);
+                numberOfCarsTotalV.setText(String.valueOf(noctV));
 
-//
+
+
             }
 
             @Override

@@ -12,6 +12,8 @@
     <string name="TNOCTitle">Total Number Of Cars: </string>
     <string name="TETitle">Time Elapsed: </string>
     <string name="InterSectionSafeInf">Intersection Safe Info </string>
+    <string name="HorTr">Horizantal Trafic </string>
+    <string name="VerrTr">Vertical Trafic </string>
     <string name="loginresendText">If you have already account? Sign In!</string>
     <string name="registerresendText">If you DO Not have account? Register!</string>
 
