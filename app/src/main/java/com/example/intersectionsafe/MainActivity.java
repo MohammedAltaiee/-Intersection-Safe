@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,8 +14,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
-    TextView carsPerHour,carsPerHourV,numberOfCarsNow,numberOfCarsNowV,numberOfCarsTotal,numberOfCarsTotalV;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private static final DecimalFormat dfInteger = new DecimalFormat("0");
+
+
+    TextView carsPerHour,carsPerHourV,numberOfCarsNow,numberOfCarsNowV,numberOfCarsTotal,numberOfCarsTotalV,optimizedCarsH,optimizedCarsV;
 
     DatabaseReference reference;
 
@@ -27,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         carsPerHour = findViewById(R.id.CarPerHourfield);
         numberOfCarsNow = findViewById(R.id.numberOfCarsNowfield);
         numberOfCarsTotal = findViewById(R.id.numberOfCarsTotalfield);
+        optimizedCarsH= findViewById(R.id.optimizedCarsH);
+        optimizedCarsV= findViewById(R.id.optimizedCarsV);
         carsPerHourV = findViewById(R.id.CarPerHourfieldV);
         numberOfCarsNowV = findViewById(R.id.numberOfCarsNowfieldV);
         numberOfCarsTotalV = findViewById(R.id.numberOfCarsTotalfieldV);
@@ -41,19 +51,26 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 //horizantal
-                Integer carsPH= snapshot.child("Intersection").child("HorizontalTraffic").child("carsPerHour").getValue(Integer.class);
-                carsPerHour.setText(String.valueOf(carsPH));
+                float carsPH= snapshot.child("Intersection").child("HorizontalTraffic").child("carsPerHour").getValue(Integer.class);
+                carsPerHour.setText(dfInteger.format(carsPH));
                 Integer nocn=snapshot.child("Intersection").child("HorizontalTraffic").child("numOfCarsRN").getValue(Integer.class);
                 numberOfCarsNow.setText(String.valueOf(nocn));
                 Integer noct=snapshot.child("Intersection").child("HorizontalTraffic").child("numOfCarsTotal").getValue(Integer.class);
                 numberOfCarsTotal.setText(String.valueOf(noct));
                 //Vertical
-                Integer carsPHV= snapshot.child("Intersection").child("VerticalTraffic").child("carsPerHour").getValue(Integer.class);
-                carsPerHourV.setText(String.valueOf(carsPHV));
+                float carsPHV=snapshot.child("Intersection").child("VerticalTraffic").child("carsPerHour").getValue(Integer.class);
+                carsPerHourV.setText(dfInteger.format(carsPHV));
                 Integer nocnV=snapshot.child("Intersection").child("VerticalTraffic").child("numOfCarsRN").getValue(Integer.class);
                 numberOfCarsNowV.setText(String.valueOf(nocnV));
                 Integer noctV=snapshot.child("Intersection").child("VerticalTraffic").child("numOfCarsTotal").getValue(Integer.class);
                 numberOfCarsTotalV.setText(String.valueOf(noctV));
+                //optimization
+//                private static final DecimalFormat df = new DecimalFormat("0.00");
+                double optimizedH= (10+(45*(carsPH/(carsPH+carsPHV))));
+                double optimizedV= (10+(45*(carsPHV/(carsPHV+carsPH))));
+//                double optimizedH=carsPH/(carsPH+carsPHV);
+                optimizedCarsH.setText(df.format(optimizedH)+" seconds");
+                optimizedCarsV.setText(df.format(optimizedV)+" seconds");
 
 
 
